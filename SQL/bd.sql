@@ -26,7 +26,7 @@ CREATE TABLE pokemon_stat (
 
     CONSTRAINT pk_pokemon_stat PRIMARY KEY (id_pokemon),
 
-    CONSTRAINT fk_pokemon_stat_pokemon FOREIGN KEY (id_pokemon) REFERENCES pokemon(id_pokemon)
+    CONSTRAINT fk_pokemon_stat_pokemon FOREIGN KEY (id_pokemon) REFERENCES pokemon(id_pokemon) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE tipo (
@@ -44,7 +44,7 @@ CREATE TABLE pokemon_tipo (
 
     CONSTRAINT pk_pokemon_tipo PRIMARY KEY (id_pokemon, id_tipo),
 
-    CONSTRAINT fk_pokemon_tipo_pokemon FOREIGN KEY (id_pokemon) REFERENCES pokemon(id_pokemon),
+    CONSTRAINT fk_pokemon_tipo_pokemon FOREIGN KEY (id_pokemon) REFERENCES pokemon(id_pokemon) ON DELETE CASCADE ON UPDATE CASCADE,
 
-    CONSTRAINT fk_pokemon_tipo_tipo FOREIGN KEY (id_tipo) REFERENCES tipo(id_tipo)
+    CONSTRAINT fk_pokemon_tipo_tipo FOREIGN KEY (id_tipo) REFERENCES tipo(id_tipo) ON DELETE CASCADE ON UPDATE CASCADE
 );

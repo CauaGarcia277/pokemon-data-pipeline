@@ -103,14 +103,6 @@ def tipo():
 
     return tipo_list
 
-#print(tipo())
-
-
-
-
-id = [1, 2]
-#print(pokemon(pokemon_id(id)))
-
 
 
 def pokemon_tipo(pokemon_list):
@@ -120,4 +112,3 @@ def pokemon_tipo(pokemon_list):
             tipo_list.append([pokemon['id'],types['type']['name']])
     return tipo_list
 
-print(stats(pokemon_id(id)))

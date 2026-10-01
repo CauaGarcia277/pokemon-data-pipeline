@@ -1,8 +1,6 @@
-from extraindo import tipo, pokemon_id, pokemon, pokemon_tipo, stats
 import pandas as pd
-from db import insert_pkm, insert_stats
 
-def df_tipo():
+def df_tipo(tipo):
 
 
     tipo_list = tipo()
@@ -69,7 +67,7 @@ def df_pokemon(pokemon_list):
 
 def df_pokemon_tipo(poke_list):
     df_pk = pd.DataFrame(poke_list, columns = [
-        'id_tipo',
+        'id_pokemon',
         'nome'])
 
     df_pk.isnull().sum()

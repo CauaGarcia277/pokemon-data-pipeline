@@ -25,3 +25,18 @@ def insert_stats(df_stats):
         cursor.execute(comando, stats)
     conexao.commit()
 
+def insert_tipo(df_tipo):
+    comando = '''INSERT INTO tipo (nome) VALUES (%s)'''
+
+    for tipo in df_tipo.itertuples(index = False):
+        cursor.execute(comando, tipo)
+    conexao.commit()
+
+def insert_pkm_tipo(df_pkm_tipo):
+    comando = '''INSERT INTO pokemon_tipo (id_pokemon, id_tipo)
+    SELECT %s, id_tipo
+    FROM tipo
+    WHERE nome = %s'''
+    for pkm_id in df_pkm_tipo.itertuples(index = False):
+        cursor.execute(comando, pkm_id)
+    conexao.commit()
