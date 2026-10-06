@@ -7,14 +7,13 @@ def df_tipo(tipo):
     tipo_df = pd.DataFrame(tipo_list, columns=['tipo'])
 
     ##Verificando valores nulos
-    tipo_df.isnull().sum()
-
-    ##Verificando o tipo da coluna
-    tipo_df.dtypes
+    if tipo_df.isnull().sum() > 0:
+        tipo_df = tipo_df.fillna('Não informado')
 
 
     ##Verificando valores duplicados
-    tipo_df.duplicated().sum()
+    if tipo_df.duplicated().sum() > 0:
+        tipo_df = tipo_df.drop_duplicates()
 
     return tipo_df
 
@@ -29,13 +28,17 @@ def df_stats(stats_list):
                              'defesa_especial', 
                              'velocidade'])
 
+    # Verificando valores nulos
+    if stats_df.isnull().sum().sum() > 0:
+        for coluna in stats_df.columns:
+            if stats_df[coluna].isnull().sum() > 0:
+                stats_df[coluna] = stats_df[coluna].fillna(0)
+            else:
+                continue
 
-    stats_df.isnull().sum()
-
-    stats_df.dtypes
-
-    ##Verificando valores duplicados
-    stats_df.duplicated().sum()
+    # Verificando valores duplicados
+    if stats_df.duplicated().sum() > 0:
+        stats_df = stats_df.drop_duplicates()
 
     return stats_df
 
@@ -52,14 +55,23 @@ def df_pokemon(pokemon_list):
         'geracao',
         'image_url'])
 
-    pokemon_df.isnull().sum()
-    ##Revizando os tipos em cada coluna
-    pokemon_df.dtypes
+    colunas_numericas = ['id_pokemon', 'altura', 'peso', 'experiencia_base']
+    colunas_texto = ['nome', 'descricao', 'geracao', 'image_url']
+
+    for coluna in colunas_numericas:
+        if pokemon_df[coluna].isnull().sum() >0:
+            pokemon_df[coluna] = pokemon_df[coluna].fillna(0)
+
+    for coluna in colunas_texto:
+        if pokemon_df[coluna].isnull().sum() > 0:
+            pokemon_df[coluna] = pokemon_df[coluna].fillna('Não informado')
+    
     ##Modificando os tipos da coluna
     pokemon_df['altura'] = pokemon_df['altura'].astype('double')
     pokemon_df['peso'] = pokemon_df['peso'].astype('double')
 
-    pokemon_df.duplicated().sum()
+    if pokemon_df.duplicated().sum() > 0:
+        pokemon_df = pokemon_df.drop_duplicates()
 
     return pokemon_df
 
@@ -70,11 +82,14 @@ def df_pokemon_tipo(poke_list):
         'id_pokemon',
         'nome'])
 
-    df_pk.isnull().sum()
+    if df_pk['id_pokemon'].isnull().sum() > 0:
+        df_pk['id_pokemon'] = df_pk['id_pokemon'].fillna(0)
 
-    df_pk.dtypes
+    if df_pk['nome'].isnull().sum() > 0:
+        df_pk['nome'] = df_pk['nome'].fillna('Não informado')
 
-    df_pk.duplicated().sum()
+    if df_pk.duplicated().sum() > 0:
+        df_pk = df_pk.drop_duplicates()
 
     return df_pk
 
